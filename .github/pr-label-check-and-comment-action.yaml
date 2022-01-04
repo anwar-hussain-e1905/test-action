@@ -1,0 +1,11 @@
+name: Check PR required labels and comment
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize]
+
+jobs:
+  check-pr-label-and-comment:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
