@@ -6,9 +6,18 @@ on:
 
 jobs:
   check-pr-label-and-comment:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: freshactions/pr-label-check-and-comment-action
+          ref: master
+          path: ./.github/actions/pr-label-check-and-comment-action
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - uses: ./.github/actions/pr-label-check-and-comment-action
+        with:
+          required_labels: '🏆 feature, 🏆 user-story, 🏋🏻‍♂️ enhancement, 🏋🏻‍♂️ task, 🕷 fix, 🕷 bug, 🔐 security-bug, 🔐 security, 📝 chore, 📝 docs'
+          GITHUB_TOKEN: '${{secrets.GITHUB_TOKEN}}'
